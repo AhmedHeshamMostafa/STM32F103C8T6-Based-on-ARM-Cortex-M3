@@ -19,6 +19,9 @@
 - RCC
 - GPIO
 - NVIC
+- EXTI
+- SysTick
+- UART
 
 <br/>
 
