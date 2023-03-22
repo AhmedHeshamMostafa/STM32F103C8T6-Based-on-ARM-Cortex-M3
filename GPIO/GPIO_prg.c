@@ -1,7 +1,7 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 18 Feb 2023                                            */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 20 Mar 2023                                            */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 #include "../../LIB/STD_TYPES.h"
@@ -852,44 +852,44 @@ Bool MGPIO_BoolSetInpCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 								switch (A_u8Port)
 								{
 									case PA :
-										CLR_BIT(PORTA->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTA->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTA->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTA->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTA->ODR, A_u8Pin);
 										break;
 
 									case PB :
-										CLR_BIT(PORTB->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTB->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTB->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTB->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTB->ODR, A_u8Pin);
 										break;
 
 									case PC :
-										CLR_BIT(PORTC->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTC->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTC->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTC->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTC->ODR, A_u8Pin);
 										break;
 
 									case PD :
-										CLR_BIT(PORTD->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTD->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTD->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTD->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTD->ODR, A_u8Pin);
 										break;
 
 									case PE :
-										CLR_BIT(PORTE->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTE->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTE->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTE->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTE->ODR, A_u8Pin);
 										break;
 
 									case PF :
-										CLR_BIT(PORTF->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTF->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTF->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTF->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTF->ODR, A_u8Pin);
 										break;
 
 									case PG :
-										CLR_BIT(PORTG->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTG->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTG->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTG->CRL, 4*A_u8Pin+3);
 										CLR_BIT(PORTG->ODR, A_u8Pin);
 										break;
 								}
@@ -903,44 +903,44 @@ Bool MGPIO_BoolSetInpCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 								switch (A_u8Port)
 								{
 									case PA :
-										CLR_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTA->ODR, A_u8Pin);
 										break;
 
 									case PB :
-										CLR_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTB->ODR, A_u8Pin);
 										break;
 
 									case PC :
-										CLR_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTC->ODR, A_u8Pin);
 										break;
 
 									case PD :
-										CLR_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTD->ODR, A_u8Pin);
 										break;
 
 									case PE :
-										CLR_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTE->ODR, A_u8Pin);
 										break;
 
 									case PF :
-										CLR_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTF->ODR, A_u8Pin);
 										break;
 
 									case PG :
-										CLR_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										CLR_BIT(PORTG->ODR, A_u8Pin);
 										break;
 								}
@@ -957,44 +957,44 @@ Bool MGPIO_BoolSetInpCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 								switch (A_u8Port)
 								{
 									case PA :
-										CLR_BIT(PORTA->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTA->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTA->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTA->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTA->ODR, A_u8Pin);
 										break;
 
 									case PB :
-										CLR_BIT(PORTB->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTB->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTB->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTB->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTB->ODR, A_u8Pin);
 										break;
 
 									case PC :
-										CLR_BIT(PORTC->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTC->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTC->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTC->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTC->ODR, A_u8Pin);
 										break;
 
 									case PD :
-										CLR_BIT(PORTD->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTD->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTD->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTD->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTD->ODR, A_u8Pin);
 										break;
 
 									case PE :
-										CLR_BIT(PORTE->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTE->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTE->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTE->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTE->ODR, A_u8Pin);
 										break;
 
 									case PF :
-										CLR_BIT(PORTF->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTF->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTF->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTF->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTF->ODR, A_u8Pin);
 										break;
 
 									case PG :
-										CLR_BIT(PORTG->CRL, 4*A_u8Pin+0);
-										SET_BIT(PORTG->CRL, 4*A_u8Pin+1);
+										CLR_BIT(PORTG->CRL, 4*A_u8Pin+2);
+										SET_BIT(PORTG->CRL, 4*A_u8Pin+3);
 										SET_BIT(PORTG->ODR, A_u8Pin);
 										break;
 								}
@@ -1008,44 +1008,44 @@ Bool MGPIO_BoolSetInpCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 								switch (A_u8Port)
 								{
 									case PA :
-										CLR_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTA->ODR, A_u8Pin);
 										break;
 
 									case PB :
-										CLR_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTB->ODR, A_u8Pin);
 										break;
 
 									case PC :
-										CLR_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTC->ODR, A_u8Pin);
 										break;
 
 									case PD :
-										CLR_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTD->ODR, A_u8Pin);
 										break;
 
 									case PE :
-										CLR_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTE->ODR, A_u8Pin);
 										break;
 
 									case PF :
-										CLR_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTF->ODR, A_u8Pin);
 										break;
 
 									case PG :
-										CLR_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-										SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+										CLR_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+										SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 										SET_BIT(PORTG->ODR, A_u8Pin);
 										break;
 								}
@@ -1281,38 +1281,38 @@ Bool MGPIO_BoolSetOutCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 									switch (A_u8Port)
 									{
 										case PA :
-											CLR_BIT(PORTA->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTA->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTA->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTA->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PB :
-											CLR_BIT(PORTB->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTB->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTB->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTB->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PC :
-											CLR_BIT(PORTC->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTC->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTC->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTC->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PD :
-											CLR_BIT(PORTD->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTD->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTD->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTD->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PE :
-											CLR_BIT(PORTE->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTE->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTE->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTE->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PF :
-											CLR_BIT(PORTF->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTF->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTF->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTF->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PG :
-											CLR_BIT(PORTG->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTG->CRL, 4*A_u8Pin+1);
+											CLR_BIT(PORTG->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTG->CRL, 4*A_u8Pin+3);
 											break;
 									}
 								}
@@ -1325,38 +1325,38 @@ Bool MGPIO_BoolSetOutCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 									switch (A_u8Port)
 									{
 										case PA :
-											CLR_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PB :
-											CLR_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PC :
-											CLR_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PD :
-											CLR_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PE :
-											CLR_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PF :
-											CLR_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PG :
-											CLR_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											CLR_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 									}
 
@@ -1372,38 +1372,38 @@ Bool MGPIO_BoolSetOutCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 									switch (A_u8Port)
 									{
 										case PA :
-											SET_BIT(PORTA->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTA->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTA->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTA->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PB :
-											SET_BIT(PORTB->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTB->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTB->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTB->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PC :
-											SET_BIT(PORTC->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTC->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTC->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTC->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PD :
-											SET_BIT(PORTD->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTD->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTD->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTD->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PE :
-											SET_BIT(PORTE->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTE->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTE->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTE->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PF :
-											SET_BIT(PORTF->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTF->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTF->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTF->CRL, 4*A_u8Pin+3);
 											break;
 
 										case PG :
-											SET_BIT(PORTG->CRL, 4*A_u8Pin+0);
-											SET_BIT(PORTG->CRL, 4*A_u8Pin+1);
+											SET_BIT(PORTG->CRL, 4*A_u8Pin+2);
+											SET_BIT(PORTG->CRL, 4*A_u8Pin+3);
 											break;
 									}
 								}
@@ -1416,38 +1416,38 @@ Bool MGPIO_BoolSetOutCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig)
 									switch (A_u8Port)
 									{
 										case PA :
-											SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTA->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PB :
-											SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTB->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PC :
-											SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTC->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PD :
-											SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTD->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PE :
-											SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTE->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PF :
-											SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTF->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 
 										case PG :
-											SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+0);
-											SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+1);
+											SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+2);
+											SET_BIT(PORTG->CRH, 4*(A_u8Pin-MAX_PIN-1)+3);
 											break;
 									}
 
