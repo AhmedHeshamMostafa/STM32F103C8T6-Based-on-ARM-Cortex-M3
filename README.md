@@ -8,7 +8,7 @@
 
 ### **Toolchain** : ARM GCC(GNU Compiler Collection)
 
-#### This repo contains my Device Drivers and Projects for the STM32F103C8T6 Microcontroller.
+#### This repo contains my Device Drivers for the STM32F103C8T6 Microcontroller.
 <br/> 
 
 **************************************************************   
@@ -16,11 +16,16 @@
 <br/>
 
  ## *Included are the Device Drivers for :*
-- RCC
+- ADC
+- EXTI
+- Flame Sensor (Based on LM393 Comparator)
 - GPIO
 - NVIC
-- EXTI
-- SysTick
+- PWM
+- RCC
+- Serial Terminal
+- Software Interrupt
+- SysTick Timer
 - UART
 
 <br/>
