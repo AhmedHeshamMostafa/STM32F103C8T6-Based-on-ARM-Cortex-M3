@@ -1,7 +1,7 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 25 Mar 2023                                            */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 2 Apr 2023                                             */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 #ifndef MCAL_ADC_ADC_PRV_H_
@@ -42,9 +42,9 @@ typedef struct
 
 
 
-#define       ADC1               ((volatile ADC_MemMap_t*)ADC1_BASE_ADDR)
-#define       ADC2               ((volatile ADC_MemMap_t*)ADC2_BASE_ADDR)
-#define       ADC3               ((volatile ADC_MemMap_t*)ADC3_BASE_ADDR)
+#define       ADC_ONE               ((volatile ADC_MemMap_t*)ADC1_BASE_ADDR)
+#define       ADC_TWO               ((volatile ADC_MemMap_t*)ADC2_BASE_ADDR)
+#define       ADC_THREE             ((volatile ADC_MemMap_t*)ADC3_BASE_ADDR)
 
 
 

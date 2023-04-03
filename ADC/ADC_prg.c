@@ -1,7 +1,7 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 25 Mar 2023                                            */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 2 Apr 2023                                             */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 /* Notice that case MINRANGE ... MAXRANGE: is a feature available only in gcc.
@@ -20,7 +20,7 @@ Bool MADC_BoolInit(ADC_cfg *ADCcfgPtConfigPtr)
 {
 	Bool L_BoolErrorState = 1;
 
-	if(((ADCcfgPtConfigPtr->ADCPerIDModuleID) != ADC1) && ((ADCcfgPtConfigPtr->ADCPerIDModuleID) != ADC2) && ((ADCcfgPtConfigPtr->ADCPerIDModuleID) != ADC3))
+	if(((ADCcfgPtConfigPtr->ADCPerIDModuleID) != ADC_ONE) && ((ADCcfgPtConfigPtr->ADCPerIDModuleID) != ADC_TWO) && ((ADCcfgPtConfigPtr->ADCPerIDModuleID) != ADC_THREE))
 	{
 		L_BoolErrorState = 0;
 	}
@@ -459,6 +459,8 @@ Bool MADC_BoolInit(ADC_cfg *ADCcfgPtConfigPtr)
 		volatile u32 *L_u32PtJOFRAddr = &(ADCcfgPtConfigPtr->ADCPerIDModuleID->JOFR1);
 		u8  *L_u8PtArrayPtr  = ADCcfgPtConfigPtr->ADCChIDArrInjectedGrp;
 
+		SET_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2, ADON);
+
 		ASSIGN_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2, CONT, ADCcfgPtConfigPtr->BoolConvMode);
 		ASSIGN_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR1, SCAN, ADCcfgPtConfigPtr->BoolScanMode);
 		ASSIGN_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR1, DISCEN, ((ADCcfgPtConfigPtr->ADCDiscontReg)&(1<<3))>>3);
@@ -640,10 +642,10 @@ void MADC_vStartADC(ADC_cfg *ADCcfgPtConfigPtr)
       at least two ADC clock cycles*/
 	for(u8 L_u8DelayCntr = 0; L_u8DelayCntr < 10; L_u8DelayCntr++);
 
-	SET_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2, RSTCAL);
+	//SET_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2, RSTCAL);
 	SET_BIT(ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2, CAL);
 
-	while(((ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2)&(1<<CAL)) == 1);
+	while((((ADCcfgPtConfigPtr->ADCPerIDModuleID->CR2)&(1<<CAL))) != 0);
 }
 
 
