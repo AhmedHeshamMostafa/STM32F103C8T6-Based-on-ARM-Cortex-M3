@@ -43,7 +43,7 @@ typedef volatile UART_MemMap_t* UARTChID_t;
 
 
 /*********************************************************************************/
-/*                 USART_SR register bits needed in UART_prog.c                  */
+/*                 USART_SR register bits needed in UART_prg.c                   */
 /*********************************************************************************/
 #define        TXE        7
 #define        TC         6
@@ -57,7 +57,7 @@ typedef volatile UART_MemMap_t* UARTChID_t;
 
 
 /*********************************************************************************/
-/*                 USART_CR1 register bits needed in UART_prog.c                 */
+/*                 USART_CR1 register bits needed in UART_prg.c                  */
 /*********************************************************************************/
 #define        UE         13
 #define        M          12
@@ -71,7 +71,7 @@ typedef volatile UART_MemMap_t* UARTChID_t;
 
 
 /*********************************************************************************/
-/*                 USART_CR2 register bits needed in UART_prog.c                 */
+/*                 USART_CR2 register bits needed in UART_prg.c                  */
 /*********************************************************************************/
 #define        STOP1      13
 #define        STOP0      12
