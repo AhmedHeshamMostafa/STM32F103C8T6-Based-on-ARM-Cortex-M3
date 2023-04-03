@@ -1,7 +1,7 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 18 Mar 2023                                            */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 2 Apr 2023                                             */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 
@@ -159,7 +159,7 @@ Bool MUART_BoolSetRx(UART_cfg *A_UARTCfgPtConfigPtr)
 /*******************************************************************/
 
 
-Bool MUART_BoolSendChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 A_u16SentData)
+Bool MUART_BoolSendByte(UART_cfg *A_UARTCfgPtConfigPtr, u8 A_u8SentByte)
 {
 	Bool L_BoolErrorState = 1;
 
@@ -170,7 +170,7 @@ Bool MUART_BoolSendChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 A_u16SentData)
 		while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<TXE)) == 0);
 		//A_UARTCfgPtConfigPtr->channel->DR = (u8)A_u16SentData;
 
-		A_UARTCfgPtConfigPtr->channel->DR = (u16)A_u16SentData;
+		A_UARTCfgPtConfigPtr->channel->DR = (u16)A_u8SentByte;
 
 		while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<TC)) == 0);
 		CLR_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);
@@ -189,7 +189,7 @@ Bool MUART_BoolSendChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 A_u16SentData)
 /*******************************************************************/
 
 
-u8 MUART_BoolRecChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecCharPtr)
+u8 MUART_BoolRecByte(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRecBytePtr)
 {
 	u8 L_u8ErrorState = 0b0000;
 
@@ -202,7 +202,7 @@ u8 MUART_BoolRecChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecCharPtr)
 		ASSIGN_BIT(L_u8ErrorState, 2, NERR);
 		ASSIGN_BIT(L_u8ErrorState, 1, FERR);
 		ASSIGN_BIT(L_u8ErrorState, 0, PERR);
-		*A_u16PtRecCharPtr = (u16)(A_UARTCfgPtConfigPtr->channel->DR);
+		*A_u8PtRecBytePtr = (u8)(A_UARTCfgPtConfigPtr->channel->DR);
 		CLR_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);
 		CLR_BIT(A_UARTCfgPtConfigPtr->channel->CR1, RE);
 	}
@@ -220,7 +220,7 @@ u8 MUART_BoolRecChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecCharPtr)
 /*******************************************************************/
 
 
-Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtSentData, u16 A_u16SentDataSize)
+Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtSFirstBytePtr, u16 A_u16BytesNum)
 {
 	Bool L_BoolErrorState = 1;
 
@@ -229,10 +229,10 @@ Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtSentData, u16
 		SET_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);
 		SET_BIT(A_UARTCfgPtConfigPtr->channel->CR1, TE);
 
-		for(u16 L_u16SentDataCount = 0; L_u16SentDataCount < A_u16SentDataSize; L_u16SentDataCount++)
+		for(u16 L_u16SentByteCount = 0; L_u16SentByteCount < A_u16BytesNum; L_u16SentByteCount++)
 		{
 			while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<TXE)) == 0);
-			A_UARTCfgPtConfigPtr->channel->DR = (u16)(A_u16PtSentData[L_u16SentDataCount]);
+			A_UARTCfgPtConfigPtr->channel->DR = (u16)(A_u8PtSFirstBytePtr[L_u16SentByteCount]);
 		}
 
 		while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<TC)) == 0);
@@ -253,10 +253,10 @@ Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtSentData, u16
 /*******************************************************************/
 
 
-u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecArrPtr, u16 A_u16RecDataSize)
+u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRFirstBytePtr, u16 A_u16RecBytesNum)
 {
-	u16 L_u16RecDataCount = 0;
-	u16 *L_u16PtRecCharPtr = A_u16PtRecArrPtr;
+	u16 L_u16RecByteCount = 0;
+	u8 *L_u8PtRecBytePtr = A_u8PtRFirstBytePtr;
 	u8 L_u8ErrorState = 0b0000;
 
 	if( ((A_UARTCfgPtConfigPtr->channel) == CH1) || ((A_UARTCfgPtConfigPtr->channel) == CH2) || ((A_UARTCfgPtConfigPtr->channel) == CH3)  ||  ((A_UARTCfgPtConfigPtr->channel) == CH4)  ||  ((A_UARTCfgPtConfigPtr->channel) == CH5))
@@ -264,16 +264,16 @@ u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecArrPtr, u16 A
 		SET_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);
 		SET_BIT(A_UARTCfgPtConfigPtr->channel->CR1, RE);
 
-		while((L_u8ErrorState == 0b0000) && (L_u16RecDataCount < A_u16RecDataSize))
+		while((L_u8ErrorState == 0b0000) && (L_u16RecByteCount < A_u16RecBytesNum))
 		{
 			while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<RXNE)) == 0);
 			ASSIGN_BIT(L_u8ErrorState, 3, ORERR);
 			ASSIGN_BIT(L_u8ErrorState, 2, NERR);
 			ASSIGN_BIT(L_u8ErrorState, 1, FERR);
 			ASSIGN_BIT(L_u8ErrorState, 0, PERR);
-			L_u16PtRecCharPtr = A_u16PtRecArrPtr + L_u16RecDataCount;
-			*L_u16PtRecCharPtr = (u16)(A_UARTCfgPtConfigPtr->channel->DR);
-			L_u16RecDataCount++;
+			L_u8PtRecBytePtr  = A_u8PtRFirstBytePtr + L_u16RecByteCount;
+			*L_u8PtRecBytePtr = (u16)(A_UARTCfgPtConfigPtr->channel->DR);
+			L_u16RecByteCount++;
 		}
 
 		CLR_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);

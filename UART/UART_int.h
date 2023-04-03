@@ -1,7 +1,7 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 18 Mar 2023                                            */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 2 Apr 2023                                             */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 #ifndef MCAL_UART_UART_INT_H_
@@ -53,10 +53,10 @@ typedef struct
 
 
 Bool MUART_BoolInit(UART_cfg *A_UARTCfgPtConfigPtr);
-Bool MUART_BoolSendChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 A_u16SentData);
-u8 MUART_BoolRecChar(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecCharPtr);
-Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtSentData, u16 A_u16SentDataSize);
-u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u16 *A_u16PtRecArrPtr, u16 A_u16RecDataSize);
+Bool MUART_BoolSendByte(UART_cfg *A_UARTCfgPtConfigPtr, u8 A_u8SentByte);
+u8 MUART_BoolRecByte(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRecBytePtr);
+Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtSFirstBytePtr, u16 A_u16BytesNum);
+u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRFirstBytePtr, u16 A_u16RecBytesNum);
 
 
 

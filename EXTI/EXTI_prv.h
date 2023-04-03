@@ -1,11 +1,15 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 3 Mar 2023                                             */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 3 Apr 2023                                             */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 #ifndef MCAL_EXTI_EXTI_PRV_H_
 #define MCAL_EXTI_EXTI_PRV_H_
+
+#include "../GPIO/GPIO_int.h"
+
+
 
 
 #define        EXTI_BASE_ADDR      0x40010400
@@ -33,18 +37,9 @@ typedef struct
 #define         MAX_TRIGGER        2
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+typedef    u8     PortID_t;
+typedef    u8     PinID_t;
+typedef    u8     LineID_t;
 
 
 

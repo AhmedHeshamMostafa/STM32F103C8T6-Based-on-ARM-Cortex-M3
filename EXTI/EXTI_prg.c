@@ -1,273 +1,241 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 3 Mar 2023                                             */
-/*             VERSION  : V01                                                    */
+/*             DATE     : 3 Apr 2023                                             */
+/*             VERSION  : V02                                                    */
 /*********************************************************************************/
 
 #include "../../LIB/STD_TYPES.h"
 #include "../../LIB/BIT_MATH.h"
-#include "EXTI_prv.h"
 #include "EXTI_int.h"
-#include "EXTI_cfg.h"
 
 
 void MEXTI_vInit(void)
 {
-	/*Clear All Flags*/
+	/*Mask all interrupts*/
+	EXTI->IMR = 0x00000000;
+	/*Mask all events*/
+	EXTI->EMR = 0x00000000;
+	/*Clear all pending bits*/
 	EXTI->PR = 0xFFFFFFFF;
 
-	/*Mask All Interrupts*/
-	EXTI->IMR = 0;
-
-	/*Mask All Events*/
-	EXTI->EMR = 0;
-
-
-	#if PIN <= MAX_PORT
-		#if TYPE <= MAX_TYPE
-			#if TRIGGER <= MAX_TRIGGER
-				#if PIN <= P3
-					ASSIGN_BIT(AFIO->EXTICR1, PIN*4+0, (PORT & 1)>>0);
-					ASSIGN_BIT(AFIO->EXTICR1, PIN*4+1, (PORT & 2)>>1);
-					ASSIGN_BIT(AFIO->EXTICR1, PIN*4+2, (PORT & 4)>>2);
-					ASSIGN_BIT(AFIO->EXTICR1, PIN*4+3, (PORT & 8)>>3);
-
-					#if TYPE == INTERRUPT
-						SET_BIT(EXTI->IMR, PIN);
-						CLR_BIT(EXTI->EMR, PIN);
-					#else
-						SET_BIT(EXTI->EMR, PIN);
-						CLR_BIT(EXTI->IMR, PIN);
-
-					#if TRIGGER == RISING_EDGE
-						SET_BIT(EXTI->RTSR, PIN);
-						CLR_BIT(EXTI->FTSR, PIN);
-					#elif TRIGGER == FALLING_EDGE
-						SET_BIT(EXTI->FTSR, PIN);
-						CLR_BIT(EXTI->RTSR, PIN);
-					#else
-						SET_BIT(EXTI->RTSR, PIN);
-						SET_BIT(EXTI->FTSR, PIN);
-
-
-				#elif PIN <= P7
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+0, (PORT & 1)>>0);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+1, (PORT & 2)>>1);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+2, (PORT & 4)>>2);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+3, (PORT & 8)>>3);
-					#if TYPE == INTERRUPT
-						SET_BIT(EXTI->IMR, PIN);
-					#else
-						SET_BIT(EXTI->EMR, PIN);
-					#endif
-
-					#if TRIGGER == RISING_EDGE
-						SET_BIT(EXTI->RTSR, PIN);
-						CLR_BIT(EXTI->FTSR, PIN);
-					#elif TRIGGER == FALLING_EDGE
-						SET_BIT(EXTI->FTSR, PIN);
-						CLR_BIT(EXTI->RTSR, PIN);
-					#else
-						SET_BIT(EXTI->RTSR, PIN);
-						SET_BIT(EXTI->FTSR, PIN);
-					#endif
-
-
-
-				#elif PIN <= P11
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+0, (PORT & 1)>>0);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+1, (PORT & 2)>>1);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+2, (PORT & 4)>>2);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+3, (PORT & 8)>>3);
-					#if TYPE == INTERRUPT
-						SET_BIT(EXTI->IMR, PIN);
-					#else
-						SET_BIT(EXTI->EMR, PIN);
-					#endif
-
-					#if TRIGGER == RISING_EDGE
-						SET_BIT(EXTI->RTSR, PIN);
-						CLR_BIT(EXTI->FTSR, PIN);
-					#elif TRIGGER == FALLING_EDGE
-						SET_BIT(EXTI->FTSR, PIN);
-						CLR_BIT(EXTI->RTSR, PIN);
-					#else
-						SET_BIT(EXTI->RTSR, PIN);
-						SET_BIT(EXTI->FTSR, PIN);
-					#endif
-
-
-
-				#elif PIN <= P15
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+0, (PORT & 1)>>0);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+1, (PORT & 2)>>1);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+2, (PORT & 4)>>2);
-					ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+3, (PORT & 8)>>3);
-					#if TYPE == INTERRUPT
-						SET_BIT(EXTI->IMR, PIN);
-					#else
-						SET_BIT(EXTI->EMR, PIN);
-					#endif
-
-					#if TRIGGER == RISING_EDGE
-						SET_BIT(EXTI->RTSR, PIN);
-						CLR_BIT(EXTI->FTSR, PIN);
-					#elif TRIGGER == FALLING_EDGE
-						SET_BIT(EXTI->FTSR, PIN);
-						CLR_BIT(EXTI->RTSR, PIN);
-					#else
-						SET_BIT(EXTI->RTSR, PIN);
-						SET_BIT(EXTI->FTSR, PIN);
-					#endif
-
-			#else
-				#error "Invalid Trigger Mode!"
-			#endif
-
-		#else
-			#error "Invalid Pin Type!"
-		#endif
-
-	#else
-		#error "Invalid Pin Number!"
-	#endif
 }
 
-Bool MEXTI_BoolEnableLine(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinType, u8 A_u8PinTrigger)
+
+/***********************************************************************************/
+
+
+Bool MEXTI_BoolEnableLine(EXTI_cfg *EXTICfgPtConfigPtr)
+{
+	volatile u32 *L_u32PtTargetAFIOPtr;
+	u8   Lu8TargetPin;
+	Bool L_BoolErrorState = 1;
+
+	switch((EXTICfgPtConfigPtr->BoolPinType))
+	{
+	case INTERRUPT:
+	case EVENT:
+	{
+		break;
+	}
+
+	default:
+	{
+		L_BoolErrorState = 0;
+		return L_BoolErrorState;
+		break;
+	}
+	}
+
+
+	switch((EXTICfgPtConfigPtr->u8PinTrigger))
+	{
+	case RISING_EDGE:
+	case FALLING_EDGE:
+	case CHANGE:
+	{
+		break;
+	}
+
+	default:
+	{
+		L_BoolErrorState = 0;
+		return L_BoolErrorState;
+		break;
+	}
+	}
+
+
+	switch((EXTICfgPtConfigPtr->PortIDPort))
+	{
+	case PORTA ... PORTG:
+	{
+		break;
+	}
+
+	default:
+	{
+		L_BoolErrorState = 0;
+		return L_BoolErrorState;
+		break;
+	}
+	}
+
+
+	switch((EXTICfgPtConfigPtr->PinIDPin))
+	{
+	case P0 ... P15:
+	{
+		break;
+	}
+
+	default:
+	{
+		L_BoolErrorState = 0;
+		return L_BoolErrorState;
+		break;
+	}
+	}
+
+
+	switch((EXTICfgPtConfigPtr->PinIDPin))
+	{
+	case P0 ... P3:
+	{
+		L_u32PtTargetAFIOPtr = &(AFIO_BLOCK->EXTICR1);
+		Lu8TargetPin = (EXTICfgPtConfigPtr->PinIDPin)*4;
+		break;
+	}
+
+	case P4 ... P7:
+	{
+		L_u32PtTargetAFIOPtr = &(AFIO_BLOCK->EXTICR2);
+		Lu8TargetPin = ((EXTICfgPtConfigPtr->PinIDPin)-4)*4;
+		break;
+	}
+
+	case P8 ... P11:
+	{
+		L_u32PtTargetAFIOPtr = &(AFIO_BLOCK->EXTICR3);
+		Lu8TargetPin = ((EXTICfgPtConfigPtr->PinIDPin)-8)*4;
+		break;
+	}
+
+	default:
+	{
+		L_u32PtTargetAFIOPtr = &(AFIO_BLOCK->EXTICR4);
+		Lu8TargetPin = ((EXTICfgPtConfigPtr->PinIDPin)-12)*4;
+		break;
+	}
+	}
+
+
+	ASSIGN_BIT(*L_u32PtTargetAFIOPtr, Lu8TargetPin, ((EXTICfgPtConfigPtr->PortIDPort)&1));
+	ASSIGN_BIT(*L_u32PtTargetAFIOPtr, Lu8TargetPin, ((EXTICfgPtConfigPtr->PortIDPort) & 2)>>1);
+	ASSIGN_BIT(*L_u32PtTargetAFIOPtr, Lu8TargetPin, ((EXTICfgPtConfigPtr->PortIDPort) & 4)>>2);
+	ASSIGN_BIT(*L_u32PtTargetAFIOPtr, Lu8TargetPin, ((EXTICfgPtConfigPtr->PortIDPort) & 8)>>3);
+
+	switch((EXTICfgPtConfigPtr->BoolPinType))
+	{
+	case INTERRUPT:
+	{
+		SET_BIT(EXTI->IMR, (EXTICfgPtConfigPtr->PinIDPin));
+		CLR_BIT(EXTI->EMR, (EXTICfgPtConfigPtr->PinIDPin));
+		break;
+	}
+	case EVENT:
+	{
+		SET_BIT(EXTI->EMR, (EXTICfgPtConfigPtr->PinIDPin));
+		CLR_BIT(EXTI->IMR, (EXTICfgPtConfigPtr->PinIDPin));
+		break;
+	}
+	}
+
+	ASSIGN_BIT(EXTI->RTSR, (EXTICfgPtConfigPtr->PinIDPin), ((EXTICfgPtConfigPtr->u8PinTrigger)&1));
+	ASSIGN_BIT(EXTI->FTSR, (EXTICfgPtConfigPtr->PinIDPin), ((EXTICfgPtConfigPtr->u8PinTrigger)&2)>>1);
+
+
+	return L_BoolErrorState;
+}
+
+
+/***********************************************************************************/
+
+
+Bool MEXTI_BoolDisableLine(LineID_t A_LineIDLine)
 {
 	Bool L_BoolErrorState = 1;
 
-	if (A_u8Port <= PG)
+	switch(A_LineIDLine)
 	{
-		if(A_u8Pin <= MAX_PORT)
-		{
-			if(A_u8PinType <= MAX_TYPE)
-			{
-				if(A_u8PinTrigger <= MAX_TRIGGER)
-				{
-					if (A_u8Pin <= P3)
-					{
-						ASSIGN_BIT(AFIO->EXTICR1, PIN*4+0, (PORT & 1)>>0);
-						ASSIGN_BIT(AFIO->EXTICR1, PIN*4+1, (PORT & 2)>>1);
-						ASSIGN_BIT(AFIO->EXTICR1, PIN*4+2, (PORT & 4)>>2);
-						ASSIGN_BIT(AFIO->EXTICR1, PIN*4+3, (PORT & 8)>>3);
-					}
-
-					else if (A_u8Pin <= P7)
-					{
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+0, (PORT & 1)>>0);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+1, (PORT & 2)>>1);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+2, (PORT & 4)>>2);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-4)*4+3, (PORT & 8)>>3);
-					}
-
-					else if(A_u8Pin <= P11)
-					{
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+0, (PORT & 1)>>0);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+1, (PORT & 2)>>1);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+2, (PORT & 4)>>2);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-8)*4+3, (PORT & 8)>>3);
-					}
-
-					else if(A_u8Pin <= P15)
-					{
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+0, (PORT & 1)>>0);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+1, (PORT & 2)>>1);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+2, (PORT & 4)>>2);
-						ASSIGN_BIT(AFIO->EXTICR2, (PIN-12)*4+3, (PORT & 8)>>3);
-					}
-
-
-					switch(A_u8PinType)
-					{
-						case INTERRUPT:
-							SET_BIT(EXTI->IMR, PIN);
-							CLR_BIT(EXTI->EMR, PIN);
-							break;
-
-						case EVENT:
-							SET_BIT(EXTI->EMR, PIN);
-							CLR_BIT(EXTI->IMR, PIN);
-							break;
-					}
-
-
-					switch(A_u8PinTrigger)
-					{
-						case RISING_EDGE:
-							SET_BIT(EXTI->RTSR, PIN);
-							CLR_BIT(EXTI->FTSR, PIN);
-							break;
-
-						case FALLING_EDGE:
-							SET_BIT(EXTI->FTSR, PIN);
-							CLR_BIT(EXTI->RTSR, PIN);
-							break;
-
-						case CHANGE:
-							SET_BIT(EXTI->RTSR, PIN);
-							SET_BIT(EXTI->FTSR, PIN);
-							break;
-					}
-				}
-			}
-
-			else
-			{
-				L_BoolErrorState = 0;
-			}
-		}
-
-		else
-		{
-			L_BoolErrorState = 0;
-		}
+	case LINE0 ... LINE15:
+	{
+		CLR_BIT(EXTI->IMR, A_LineIDLine);
+		CLR_BIT(EXTI->EMR, A_LineIDLine);
+		break;
 	}
 
-	else
+	default:
 	{
 		L_BoolErrorState = 0;
+		break;
+	}
 	}
 
 	return L_BoolErrorState;
 }
 
-Bool MEXTI_BoolDisableLine(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinType, u8 A_u8PinTrigger)
+
+/***********************************************************************************/
+
+
+Bool MEXTI_BoolSetSWInterrupt(LineID_t A_LineIDLine)
 {
 	Bool L_BoolErrorState = 1;
 
-	if (A_u8Port <= PG)
+	switch(A_LineIDLine)
 	{
-		if(A_u8Pin <= MAX_PORT)
-		{
-			if(A_u8PinType <= MAX_TYPE)
-			{
-				if(A_u8PinTrigger <= MAX_TRIGGER)
-				{
-					CLR_BIT(EXTI->IMR, PIN);
-					CLR_BIT(EXTI->EMR, PIN);
-				}
+	case LINE0 ... LINE15:
+	{
+		SET_BIT(EXTI->SWIER, A_LineIDLine);
+		break;
+	}
 
-				else
-				{
-					L_BoolErrorState = 0;
-				}
-
-			else
-			{
-				L_BoolErrorState = 0;
-			}
-
-		else
-		{
-				L_BoolErrorState = 0;
-		}
-
-	else
+	default:
 	{
 		L_BoolErrorState = 0;
+		break;
+	}
 	}
 
 
 	return L_BoolErrorState;
+
+}
+
+
+/***********************************************************************************/
+
+
+Bool MEXTI_BoolClearSWInterrupt(LineID_t A_LineIDLine)
+{
+	Bool L_BoolErrorState = 1;
+
+	switch(A_LineIDLine)
+	{
+	case LINE0 ... LINE15:
+	{
+		SET_BIT(EXTI->PR, A_LineIDLine);
+		break;
+	}
+
+	default:
+	{
+		L_BoolErrorState = 0;
+		break;
+	}
+	}
+
+
+	return L_BoolErrorState;
+
 }
