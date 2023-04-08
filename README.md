@@ -27,6 +27,7 @@
 - Software Interrupt
 - SysTick Timer
 - UART
+- ESP8266
 
 <br/>
 
