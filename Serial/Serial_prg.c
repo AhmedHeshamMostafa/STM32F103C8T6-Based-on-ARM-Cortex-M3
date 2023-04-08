@@ -56,6 +56,9 @@ Bool HSerial_BoolInit(Serial_cfg *A_SerCfgPtConfigPtr)
 			MRCC_BoolEnableClock(APB2, AFIO);
 			MRCC_BoolEnableClock(APB1, USART3);
 		}
+		
+		
+		MUART_BoolInit(&UARTCfgConfig);
 
 	}
 
@@ -65,8 +68,6 @@ Bool HSerial_BoolInit(Serial_cfg *A_SerCfgPtConfigPtr)
 		L_BoolErrorState = 0;
 	}
 
-
-	MUART_BoolInit(&UARTCfgConfig);
 
 	return L_BoolErrorState;
 
