@@ -15,8 +15,10 @@
 
 <br/>
 
- ## *Included are the Device Drivers for :*
+ ## *Included are the Device Drivers and Modules for :*
 - ADC
+- Bit Manipulation and Standard Types
+- Delay in Microseconds
 - EXTI
 - Flame Sensor (Based on LM393 Comparator)
 - GPIO
@@ -27,7 +29,7 @@
 - Software Interrupt
 - SysTick Timer
 - UART
-- ESP8266
+- ESP8266 WiFi Modules
 
 <br/>
 
