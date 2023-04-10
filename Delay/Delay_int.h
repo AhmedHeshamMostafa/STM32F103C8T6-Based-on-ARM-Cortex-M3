@@ -1,15 +1,18 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 3 Mar 2023                                             */
+/*             DATE     : 10 Apr 2023                                            */
 /*             VERSION  : V01                                                    */
 /*********************************************************************************/
 
-
-#ifndef MCAL_SYSTICK_SYSTICK_CFG_H_
-#define MCAL_SYSTICK_SYSTICK_CFG_H_
-
+#ifndef LIB_DELAY_DELAY_INT_H_
+#define LIB_DELAY_DELAY_INT_H_
 
 
+#define      F_CPU         8000000
 
 
-#endif /* MCAL_SYSTICK_SYSTICK_CFG_H_ */
+Bool delay_us(u32 A_u32MicroSeconds);
+
+
+
+#endif /* LIB_DELAY_DELAY_INT_H_ */
