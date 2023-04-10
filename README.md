@@ -29,7 +29,7 @@
 - Software Interrupt
 - SysTick Timer
 - UART
-- ESP8266 WiFi Modules
+- WiFi Module (ESP8266)
 
 <br/>
 
