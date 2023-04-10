@@ -8,7 +8,7 @@
 
 ### **Toolchain** : ARM GCC(GNU Compiler Collection)
 
-#### This repo contains my Device Drivers for the STM32F103C8T6 Microcontroller.
+#### This repo contains my Device Drivers and Modules for the STM32F103C8T6 Microcontroller.
 <br/> 
 
 **************************************************************   
