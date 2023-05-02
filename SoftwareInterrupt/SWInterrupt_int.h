@@ -8,9 +8,6 @@
 #define HAL_SWINTERRUPT_SWINTERRUPT_INT_H_
 
 
-#define        NO_FIRE      0b111111111111
-
-
 
 
 

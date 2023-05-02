@@ -198,10 +198,10 @@ u8 MUART_BoolRecByte(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRecBytePtr)
 		SET_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);
 		SET_BIT(A_UARTCfgPtConfigPtr->channel->CR1, RE);
 		while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<RXNE)) == 0);
-		ASSIGN_BIT(L_u8ErrorState, 3, ORERR);
-		ASSIGN_BIT(L_u8ErrorState, 2, NERR);
-		ASSIGN_BIT(L_u8ErrorState, 1, FERR);
-		ASSIGN_BIT(L_u8ErrorState, 0, PERR);
+		ASSIGN_BIT(L_u8ErrorState, 3, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<ORERR))>>ORERR);
+		ASSIGN_BIT(L_u8ErrorState, 2, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<NERR))>>NERR);
+		ASSIGN_BIT(L_u8ErrorState, 1, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<FERR))>>FERR);
+		ASSIGN_BIT(L_u8ErrorState, 0, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<PERR))>>PERR);
 		*A_u8PtRecBytePtr = (u8)(A_UARTCfgPtConfigPtr->channel->DR);
 		CLR_BIT(A_UARTCfgPtConfigPtr->channel->CR1, UE);
 		CLR_BIT(A_UARTCfgPtConfigPtr->channel->CR1, RE);
@@ -253,10 +253,10 @@ Bool MUART_BoolSendArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtSFirstBytePtr, 
 /*******************************************************************/
 
 
-u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRFirstBytePtr, u16 A_u16RecBytesNum)
+u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtFirstBytePtr, u16 A_u16RecBytesNum)
 {
 	u16 L_u16RecByteCount = 0;
-	u8 *L_u8PtRecBytePtr = A_u8PtRFirstBytePtr;
+	u8 *L_u8PtRecBytePtr = A_u8PtFirstBytePtr;
 	u8 L_u8ErrorState = 0b0000;
 
 	if( ((A_UARTCfgPtConfigPtr->channel) == CH1) || ((A_UARTCfgPtConfigPtr->channel) == CH2) || ((A_UARTCfgPtConfigPtr->channel) == CH3)  ||  ((A_UARTCfgPtConfigPtr->channel) == CH4)  ||  ((A_UARTCfgPtConfigPtr->channel) == CH5))
@@ -266,13 +266,14 @@ u8 MUART_BoolRecArr(UART_cfg *A_UARTCfgPtConfigPtr, u8 *A_u8PtRFirstBytePtr, u16
 
 		while((L_u8ErrorState == 0b0000) && (L_u16RecByteCount < A_u16RecBytesNum))
 		{
+
 			while(((A_UARTCfgPtConfigPtr->channel->SR)&(1<<RXNE)) == 0);
-			ASSIGN_BIT(L_u8ErrorState, 3, ORERR);
-			ASSIGN_BIT(L_u8ErrorState, 2, NERR);
-			ASSIGN_BIT(L_u8ErrorState, 1, FERR);
-			ASSIGN_BIT(L_u8ErrorState, 0, PERR);
-			L_u8PtRecBytePtr  = A_u8PtRFirstBytePtr + L_u16RecByteCount;
-			*L_u8PtRecBytePtr = (u16)(A_UARTCfgPtConfigPtr->channel->DR);
+			ASSIGN_BIT(L_u8ErrorState, 3, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<ORERR))>>ORERR);
+			ASSIGN_BIT(L_u8ErrorState, 2, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<NERR))>>NERR);
+			ASSIGN_BIT(L_u8ErrorState, 1, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<FERR))>>FERR);
+			ASSIGN_BIT(L_u8ErrorState, 0, ((A_UARTCfgPtConfigPtr->channel->SR)&(1<<PERR))>>PERR);
+			L_u8PtRecBytePtr  = A_u8PtFirstBytePtr + L_u16RecByteCount;
+			*L_u8PtRecBytePtr = (u8)(A_UARTCfgPtConfigPtr->channel->DR);
 			L_u16RecByteCount++;
 		}
 
