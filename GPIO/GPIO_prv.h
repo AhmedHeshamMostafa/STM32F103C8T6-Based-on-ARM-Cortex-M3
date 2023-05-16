@@ -1,11 +1,11 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 20 Mar 2023                                            */
-/*             VERSION  : V02                                                    */
+/*             DATE     : 7 May 2023                                             */
+/*             VERSION  : V03                                                    */
 /*********************************************************************************/
 
-#ifndef MCAL_RCC_RCC_PRV_H_
-#define MCAL_RCC_RCC_PRV_H_
+#ifndef MCAL_GPIO_GPIO_PRV_H_
+#define MCAL_GPIO_GPIO_PRV_H_
 
 
 #define        PORTA_BASE_ADDR      0x40010800
@@ -33,8 +33,9 @@ typedef struct
 
 
 
-
-
+typedef   u8      portID_t;
+typedef   u8      pinID_t;
+typedef   u8      modeCfgID_t;
 
 
 
@@ -328,4 +329,4 @@ typedef struct
 
 
 
-#endif /* MCAL_RCC_RCC_PRV_H_ */
+#endif /* MCAL_GPIO_GPIO_PRV_H_ */

@@ -1,11 +1,14 @@
 /*********************************************************************************/
 /*             AUTHOR   : Ahmed Hesham Mostafa                                   */
-/*             DATE     : 20 Mar 2023                                            */
-/*             VERSION  : V02                                                    */
+/*             DATE     : 7 May 2023                                             */
+/*             VERSION  : V03                                                    */
 /*********************************************************************************/
 
 #ifndef MCAL_GPIO_GPIO_INT_H_
 #define MCAL_GPIO_GPIO_INT_H_
+
+#include "../../LIB/STD_TYPES.h"
+#include "GPIO_prv.h"
 
 
 /*********************************************************************************/
@@ -72,12 +75,12 @@
 /*********************************************************************************/
 
 void MGPIO_vInit(void);
-Bool MGPIO_BoolSetPinDir(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinMode);
-Bool MGPIO_BoolSetInpCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig);
-Bool MGPIO_BoolSetOutCfg(u8 A_u8Port, u8 A_u8Pin, u8 A_u8PinConfig);
-Bool MGPIO_BoolReadPin(u8 A_u8Port, u8 A_u8Pin, Bool* A_BoolPtrData);
-Bool MGPIO_BoolWritePin(u8 A_u8Port, u8 A_u8Pin, Bool A_BoolVal);
-Bool MGPIO_BoolLockPin(u8 A_u8Port, u8 A_u8Pin);
+Bool MGPIO_BoolSetPinDir(portID_t A_portIDPort, pinID_t A_pinIDPin, modeCfgID_t A_modeCfgIDPinMode);
+Bool MGPIO_BoolSetInpCfg(portID_t A_portIDPort, pinID_t A_pinIDPin, modeCfgID_t A_modeCfgIDPinConfig);
+Bool MGPIO_BoolSetOutCfg(portID_t A_portIDPort, pinID_t A_pinIDPin, modeCfgID_t A_modeCfgIDPinConfig);
+Bool MGPIO_BoolReadPin(portID_t A_portIDPort, pinID_t A_pinIDPin, Bool* A_BoolPtrData);
+Bool MGPIO_BoolWritePin(portID_t A_portIDPort, pinID_t A_pinIDPin, Bool A_BoolVal);
+Bool MGPIO_BoolLockPin(portID_t A_portIDPort, pinID_t A_pinIDPin);
 
 /*********************************************************************************/
 
