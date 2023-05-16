@@ -20,16 +20,20 @@
 - Bit Manipulation and Standard Types
 - Delay in Microseconds
 - EXTI
-- Flame Sensor (Based on LM393 Comparator)
+- Flame Sensor(Based on LM393 Comparator)
 - GPIO
+- Dual Color LED Matrix(Red and Green)
 - NVIC
 - PWM
 - RCC
+- SPI
 - Serial Terminal
+- Shift Register(74595 IC)
 - Software Interrupt
 - SysTick Timer
+- TFT Display(Based on ST7735S Controller)
 - UART
-- WiFi Module (ESP8266)
+- WiFi Module(ESP8266)
 
 <br/>
 
