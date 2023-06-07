@@ -1,0 +1,130 @@
+/*
+ * MNVIC_int.h
+ *
+ *  Created on: May 30, 2023
+ *      Author: Ahmed
+ */
+
+#ifndef MCAL_MNVIC_MNVIC_INT_H_
+#define MCAL_MNVIC_MNVIC_INT_H_
+
+
+typedef enum
+{
+	WWDOG,
+	EXTI16_PVD,
+	EXTI21_TAMPSTAMP,
+	EXTI22_RTCWKUP,
+	FLASH,
+	RCC,
+	EXTI0,
+	EXTI1,
+	EXTI2,
+	EXTI3,
+	EXTI4,
+	DMA1STREAM0,
+	DMA1STREAM1,
+	DMA1STREAM2,
+	DMA1STREAM3,
+	DMA1STREAM4,
+	DMA1STREAM5,
+	DMA1STREAM6,
+	ADC,
+	EXTI9_5=23,
+	TIM1_BRK_TIM9,
+	TIM1_UP_TIM10,
+	TIM1_TRG_COM_TIM11,
+	TIM1_CC,
+	TIMER2,
+	TIMER3,
+	TIMER4,
+	I2C1_EV,
+	I2C1_ER,
+	I2C2_EV,
+	I2C2_ER,
+	SPIONE,
+	SPITWO,
+	USARTONE,
+	USARTTWO,
+	EXTI15_10=40,
+	EXTI17_RTCALARM,
+	EXTI18_OTGFSWKUP,
+	DMA1STREAM7=47,
+	SDINOUT=49,
+	TIMER5,
+	SPITHREE,
+	DMA2STREAM0=56,
+	DMA2STREAM1,
+	DMA2STREAM2,
+	DMA2STREAM3,
+	DMA2STREAM4,
+	OTG_FS=67,
+	DMA2STREAM5,
+	DMA2STREAM6,
+	DMA2STREAM7,
+	USARTSIX,
+	I2C3_EV,
+	I2C3_ER,
+	FPU=81,
+	SPIFOUR=84
+
+}perID_t;
+
+
+
+
+
+typedef enum
+{
+
+	SIXTEENGRPS          = 0x300,
+	EIGHTGRPS_TWOSUBS    = 0x400,
+	FOURGRPS_FOURSUBS    = 0x500,
+	TWOGRPS_EIGHTSUBS    = 0x600,
+	SIXTEENSUBGRPS       = 0x700
+
+}priorityMode_t;
+
+
+
+
+
+
+typedef enum
+{
+
+	PRIORITY_0,
+	PRIORITY_1,
+	PRIORITY_2,
+	PRIORITY_3,
+	PRIORITY_4,
+	PRIORITY_5,
+	PRIORITY_6,
+	PRIORITY_7,
+	PRIORITY_8,
+	PRIORITY_9,
+	PRIORITY_10,
+	PRIORITY_11,
+	PRIORITY_12,
+	PRIORITY_13,
+	PRIORITY_14,
+	PRIORITY_15
+
+}priorityNum_t;
+
+
+
+
+
+
+Bool MNVIC_BoolEnablePerINT(perID_t Cpy_perIDPer);
+Bool MNVIC_BoolDisablePerINT(perID_t Cpy_perIDPer);
+Bool MNVIC_BoolSetPerPending(perID_t Cpy_perIDPer);
+Bool MNVIC_BoolClrPerPending(perID_t Cpy_perIDPer);
+u8 MNVIC_BoolIsISRExecut(perID_t Cpy_perIDPer);
+Bool MNVIC_BoolSetPriorityMode(priorityMode_t Cpy_prModePriority);
+u8 MNVIC_u8SetPriorities(perID_t Cpy_perIDPer, priorityNum_t Cpy_prNumGrpPriority, priorityNum_t Cpy_prNumSubGrpPriority);
+
+
+
+#endif /* MCAL_MNVIC_MNVIC_INT_H_ */
